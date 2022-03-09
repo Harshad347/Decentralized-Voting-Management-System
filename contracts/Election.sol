@@ -6,7 +6,6 @@ contract Election {
         string name;
         uint256 voterId;
         address accountAddress;
-        bool authorized;
         bool voted;
         bool exists;
     }
@@ -40,7 +39,7 @@ contract Election {
         _;
     }
 
-    function startElection() public onlyOwner {
+    function startRegistartionPhase() public onlyOwner {
         electionState = 1;
     }
 
@@ -48,8 +47,8 @@ contract Election {
         electionState = 2;
     }
 
-    function endElection() public onlyOwner {
-        electionState = 0;
+    function endVotingPhase() public onlyOwner {
+        electionState = 3;
     }
 
     function registerVoter(string memory _name, uint256 _voterId)
@@ -71,11 +70,10 @@ contract Election {
             "This Voter Id is already registered."
         );
         voterCount++;
-        voters[_voterId] = Voter(
+        voters[voterCount] = Voter(
             _name,
             _voterId,
             _accountAddress,
-            false,
             false,
             true
         );
@@ -92,6 +90,26 @@ contract Election {
         candidateCount++;
         candidates[candidateCount] = Candidate(_name, _party, 0, true);
         emit CandidateCreated(_name, _party);
+    }
+
+    function vote(uint256 _voterId, uint256 _candidateId) public {
+        require(electionState == 2, "This is not Voting Phase.");
+        require(
+            !checkIfVoterIdExist(_voterId),
+            "You are not registered to vote."
+        );
+        require(
+            _candidateId > 0 && _candidateId <= candidateCount,
+            "Candidate selection is invalid."
+        );
+        require(
+            voters[_voterId].accountAddress == msg.sender,
+            "Please vote with registered Account Address."
+        );
+        require(!voters[_voterId].voted, "You have already Voted.");
+        candidates[_candidateId].noOfVotes++;
+        voters[_voterId].voted = true;
+        emit VoterVoted(_voterId, _candidateId);
     }
 
     function checkIfVoterIdExist(uint256 _inputVoterId) private returns (bool) {
@@ -144,4 +162,6 @@ contract Election {
 
     event VoterCreated(string name, uint256 voterId, address accountAddress);
     event CandidateCreated(string name, string party);
+    event VoterVoted(uint256 voterId, uint256 candidateId);
+}
 }
