@@ -10,11 +10,13 @@
 <body>
     <div id="main">
         <p id="accountAddress" class="text-center"></p>
-        <button onclick="VoterRegForm()">Voter Registration</button>
+        <!-- <button onclick="VoterRegForm()">Voter Registration</button> -->
         <!-- <button onclick="ShowVoters()">Voter List</button> -->
+        <button onclick="CandidateRegForm()">Candidate Registration</button>
+        <!-- <button onclick="ShowCandidates()">Candidate List</button> -->
     </div>
     
-    <div id="voterContent">
+    <!-- <div id="voterContent">
         <table>
             <thead>
                 <tr>
@@ -25,11 +27,30 @@
             </thead>
             <tbody id="voterRegistered"></tbody>
         </table>
+    </div> -->
+
+    <div id="candidateContent">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>Vote Count</th>
+                </tr>
+            </thead>
+            <tbody id="candidateRegistered"></tbody>
+        </table>
     </div>
 
-    <form onSubmit="App.registerVoter();" id="voterForm">
+    <!-- <form onSubmit="App.registerVoter();" id="voterForm">
         <input type="text" id="input-vName" placeholder="Enter Name">
         <input type="text" id="input-voterId" placeholder="Enter Voter ID">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form> -->
+
+    <form onSubmit="App.registerCandidate();" id="candidateForm">
+        <input type="text" id="input-cName" placeholder="Enter Name">
+        <input type="text" id="input-party" placeholder="Enter Party Name">
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
     

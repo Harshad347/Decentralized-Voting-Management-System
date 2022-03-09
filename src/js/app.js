@@ -32,8 +32,14 @@ App = {
 
   listenForEvents: function () {
     App.contracts.Election.deployed().then(function (instance) {
+      // instance.VoterCreated({},
+      //   {
+      //     fromBlock: 0,
+      //     toBlock: "latest",
+      //   }
+      //   ),
       instance
-        .VoterCreated(
+        .CandidateCreated(
           {},
           {
             fromBlock: 0,
@@ -62,38 +68,69 @@ App = {
         return electionInstance;
       })
       .then(function () {
-        electionInstance.voterCount().then(function (voterCount) {
-          var voterRegistered = $("#voterRegistered");
-          voterRegistered.empty();
+        electionInstance.candidateCount().then(function (candidateCount) {
+          var candidateRegistered = $("#candidateRegistered");
+          candidateRegistered.empty();
 
-          for (var i = 1; i <= voterCount; i++) {
-            electionInstance.voters(i).then(function (voter) {
-              var name = voter[0];
-              var voterId = voter[1];
-              var accountAddress = voter[2];
+          for (var i = 1; i <= candidateCount; i++) {
+            electionInstance.candidates(i).then(function (candidate) {
+              var name = candidate[0];
+              var party = candidate[1];
+              var voteCount = candidate[2];
 
-              var voterTemplate =
+              var candidateTemplate =
                 "<tr><td>" +
                 name +
                 "</td><td>" +
-                voterId +
+                party +
                 "</td><td>" +
-                accountAddress +
+                voteCount +
                 "</td></tr>";
-              voterRegistered.append(voterTemplate);
+              candidateRegistered.append(candidateTemplate);
             });
           }
-          return electionInstance.voters(App.account);
+          return electionInstance.candidates(App.account);
+
+          // electionInstance.voterCount().then(function (voterCount) {
+          //   var voterRegistered = $("#voterRegistered");
+          //   voterRegistered.empty();
+
+          //   for (var i = 1; i <= voterCount; i++) {
+          //     electionInstance.voters(i).then(function (voter) {
+          //       var name = voter[0];
+          //       var voterId = voter[1];
+          //       var accountAddress = voter[2];
+
+          //       var voterTemplate =
+          //         "<tr><td>" +
+          //         name +
+          //         "</td><td>" +
+          //         voterId +
+          //         "</td><td>" +
+          //         accountAddress +
+          //         "</td></tr>";
+          //       voterRegistered.append(voterTemplate);
+          //     });
+          //   }
+          //   return electionInstance.voters(App.account);
         });
       });
   },
 
-  registerVoter: function () {
-    var vName = $("#input-vName").val();
-    var voterId = $("#input-voterId").val();
+  // registerVoter: function () {
+  //   var vName = $("#input-vName").val();
+  //   var voterId = $("#input-voterId").val();
 
+  //   App.contracts.Election.deployed().then(function (instance) {
+  //     return instance.registerVoter(vName, voterId, { from: App.account });
+  //   });
+  // },
+
+  registerCandidate: function () {
+    var cName = $("#input-cName").val();
+    var party = $("#input-party").val();
     App.contracts.Election.deployed().then(function (instance) {
-      return instance.registerVoter(vName, voterId, { from: App.account });
+      return instance.registerCandidate(cName, party, { from: App.account });
     });
   },
 };

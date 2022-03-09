@@ -1,3 +1,7 @@
-#voterForm {
+/* #voterForm {
+  display: none;
+} */
+
+#candidateForm {
   display: none;
 }
