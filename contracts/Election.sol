@@ -39,23 +39,10 @@ contract Election {
         _;
     }
 
-    function startRegistartionPhase() public onlyOwner {
-        electionState = 1;
-    }
-
-    function startVotingPhase() public onlyOwner {
-        electionState = 2;
-    }
-
-    function endVotingPhase() public onlyOwner {
-        electionState = 3;
-    }
-
     function registerVoter(string memory _name, uint256 _voterId)
         public
         returns (uint256)
     {
-        require(electionState == 1, "This is not Registration Phase.");
         address _accountAddress = msg.sender;
         require(
             _accountAddress != adminAddress,
@@ -85,7 +72,6 @@ contract Election {
         onlyOwner
         returns (uint256)
     {
-        require(electionState == 1, "This is not Registration Phase.");
         require(checkIfPartyExist(_party), "This Party is already registered.");
         candidateCount++;
         candidates[candidateCount] = Candidate(_name, _party, 0, true);
@@ -93,7 +79,6 @@ contract Election {
     }
 
     function vote(uint256 _voterId, uint256 _candidateId) public {
-        require(electionState == 2, "This is not Voting Phase.");
         require(
             !checkIfVoterIdExist(_voterId),
             "You are not registered to vote."
