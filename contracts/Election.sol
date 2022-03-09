@@ -87,14 +87,29 @@ contract Election {
             _candidateId > 0 && _candidateId <= candidateCount,
             "Candidate selection is invalid."
         );
+        uint256 id = returnCount(_voterId);
         require(
-            voters[_voterId].accountAddress == msg.sender,
+            voters[id].accountAddress == msg.sender,
             "Please vote with registered Account Address."
         );
-        require(!voters[_voterId].voted, "You have already Voted.");
+        require(!voters[id].voted, "You have already Voted.");
         candidates[_candidateId].noOfVotes++;
-        voters[_voterId].voted = true;
+        voters[id].voted = true;
         emit VoterVoted(_voterId, _candidateId);
+    }
+
+    function returnCount(uint256 _inputVoterId) private returns (uint256) {
+        for (uint256 i = 1; i <= voterCount; i++) {
+            uint256 idVoter = voters[i].voterId;
+            if (
+                keccak256(abi.encodePacked(idVoter)) ==
+                keccak256(abi.encodePacked(_inputVoterId))
+            ) {
+                return i;
+                break;
+            }
+        }
+        return 0;
     }
 
     function checkIfVoterIdExist(uint256 _inputVoterId) private returns (bool) {
@@ -148,5 +163,4 @@ contract Election {
     event VoterCreated(string name, uint256 voterId, address accountAddress);
     event CandidateCreated(string name, string party);
     event VoterVoted(uint256 voterId, uint256 candidateId);
-}
 }
