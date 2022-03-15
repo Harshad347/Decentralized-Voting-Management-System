@@ -5,59 +5,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Decentralized Voting Management System</title>
 </head>
 <body>
-    <div id="main">
-        <p id="accountAddress" class="text-center"></p>
-        <!-- <button onclick="VoterRegForm()">Voter Registration</button> -->
-        <!-- <button onclick="ShowVoters()">Voter List</button> -->
-        <button onclick="CandidateRegForm()">Candidate Registration</button>
-        <!-- <button onclick="ShowCandidates()">Candidate List</button> -->
-    </div>
-    
-    <!-- <div id="voterContent">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Voter ID</th>
-                    <th>Account Address</th>
-                </tr>
-            </thead>
-            <tbody id="voterRegistered"></tbody>
-        </table>
+
+    <!-- <div class="main">
+
+        <div class="navbar-section">
+            <div class="navbar-links">
+                <a href="#"><i class="fa fa-fw fa-user"></i> <b>Login</a>
+                <a href="#"><i class="fa fa-fw fa-user"></i> Register</a>
+                <a href="#"><i class="fa fa-fw fa-search"></i> About</a>
+                <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+            </div>
+
+
+        </div>
     </div> -->
 
-    <div id="candidateContent">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Party</th>
-                    <th>Vote Count</th>
-                </tr>
-            </thead>
-            <tbody id="candidateRegistered"></tbody>
-        </table>
+
+    <div id="loader">Loading...</div>
+
+    <div id="content">
+        <div id="container">
+            <p id="accountAddress" class="text-center"></p>
+            <button onclick="VoterRegForm()">Voter Registration</button>
+            <button onclick="ShowVoters()">Voter List</button>
+            <button onclick="CandidateRegForm()">Candidate Registration</button>
+            <button onclick="ShowCandidates()">Candidate List</button>
+            <button onclick="VoteNow()">Vote a Candidate</button>
+        </div>
+        
+        <div id="voterContent">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Voter ID</th>
+                        <th>Account Address</th>
+                    </tr>
+                </thead>
+                <tbody id="voterRegistered"></tbody>
+            </table>
+        </div>
+    
+        <div id="candidateContent">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Party</th>
+                        <th>Vote Count</th>
+                    </tr>
+                </thead>
+                <tbody id="candidateRegistered"></tbody>
+            </table>
+        </div>
+    
+        <form onSubmit="App.registerVoter();" id="voterForm">
+            <input type="text" id="input-vName" placeholder="Enter Name">
+            <input type="text" id="input-voterId" placeholder="Enter Voter ID">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    
+        <form onSubmit="App.registerCandidate();" id="candidateForm">
+            <input type="text" id="input-cName" placeholder="Enter Name">
+            <input type="text" id="input-party" placeholder="Enter Party Name">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    
+        <form onSubmit="App.vote();" id="voteForm">
+            <div id="candidateContent">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Party</th>
+                            <th>Vote Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="candidateRegistered"></tbody>
+                </table>
+            </div>
+            <input type="text" id="input-vVoterId" placeholder="Enter Voter ID">
+            <input type="text" id="input-candidateId" placeholder="Enter Candidate ID">
+            <button type="submit" class="btn btn-primary">Vote</button>
+        </form>
     </div>
-
-    <!-- <form onSubmit="App.registerVoter();" id="voterForm">
-        <input type="text" id="input-vName" placeholder="Enter Name">
-        <input type="text" id="input-voterId" placeholder="Enter Voter ID">
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form> -->
-
-    <form onSubmit="App.registerCandidate();" id="candidateForm">
-        <input type="text" id="input-cName" placeholder="Enter Name">
-        <input type="text" id="input-party" placeholder="Enter Party Name">
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
     <script src="js/main.js"></script>
+    
 </body>
 </html>

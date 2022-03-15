@@ -1,7 +1,44 @@
-/* #voterForm {
+#voterForm {
   display: none;
-} */
+}
 
 #candidateForm {
   display: none;
 }
+
+#voterContent {
+  display: none;
+}
+
+#candidateContent {
+  display: none;
+}
+
+#voteForm {
+  display: none;
+}
+
+/* body {
+  margin: 0;
+}
+
+/* css for navbar-section */
+/* .navbar-section {
+  overflow: hidden;
+  background-color: #131159;
+}
+
+.navbar-section a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  float: right;
+}
+
+.navbar-section a:hover {
+  background-color: #ddd;
+  color: black;
+}   */
