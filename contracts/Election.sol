@@ -6,11 +6,13 @@ contract Election {
         string name;
         uint256 voterId;
         address accountAddress;
+        bool authorized;
         bool voted;
         bool exists;
     }
 
     struct Candidate {
+        uint256 id;
         string name;
         string party;
         uint256 noOfVotes;
@@ -62,6 +64,7 @@ contract Election {
             _voterId,
             _accountAddress,
             false,
+            false,
             true
         );
         emit VoterCreated(_name, _voterId, _accountAddress);
@@ -74,7 +77,13 @@ contract Election {
     {
         require(checkIfPartyExist(_party), "This Party is already registered.");
         candidateCount++;
-        candidates[candidateCount] = Candidate(_name, _party, 0, true);
+        candidates[candidateCount] = Candidate(
+            candidateCount,
+            _name,
+            _party,
+            0,
+            true
+        );
         emit CandidateCreated(_name, _party);
     }
 
@@ -92,10 +101,20 @@ contract Election {
             voters[id].accountAddress == msg.sender,
             "Please vote with registered Account Address."
         );
-        require(!voters[id].voted, "You have already Voted.");
+        require(voters[id].authorized, "You are not authorize to vote.");
+        require(!voters[id].voted, "You have already voted.");
         candidates[_candidateId].noOfVotes++;
         voters[id].voted = true;
         emit VoterVoted(_voterId, _candidateId);
+    }
+
+    function authorizeVoter(uint256 _voterId) public onlyOwner {
+        require(
+            !checkIfVoterIdExist(_voterId),
+            "This voter ID is not registered."
+        );
+        uint256 id = returnCount(_voterId);
+        voters[id].authorized = true;
     }
 
     function returnCount(uint256 _inputVoterId) private returns (uint256) {
