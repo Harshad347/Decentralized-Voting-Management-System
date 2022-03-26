@@ -35,6 +35,7 @@
             <button onclick="CandidateRegForm()">Candidate Registration</button>
             <button onclick="ShowCandidates()">Candidate List</button>
             <button onclick="VoteNow()">Vote a Candidate</button>
+            <button onclick="AuthorizeVoter()">Authorize a Voter</button>
         </div>
         
         <div id="voterContent">
@@ -44,6 +45,7 @@
                         <th>Name</th>
                         <th>Voter ID</th>
                         <th>Account Address</th>
+                        <th>Is Authorized</th>
                     </tr>
                 </thead>
                 <tbody id="voterRegistered"></tbody>
@@ -54,6 +56,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Party</th>
                         <th>Vote Count</th>
@@ -80,9 +83,11 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Party</th>
                             <th>Vote Count</th>
+
                         </tr>
                     </thead>
                     <tbody id="candidateRegistered"></tbody>
@@ -91,6 +96,24 @@
             <input type="text" id="input-vVoterId" placeholder="Enter Voter ID">
             <input type="text" id="input-candidateId" placeholder="Enter Candidate ID">
             <button type="submit" class="btn btn-primary">Vote</button>
+        </form>
+
+        <form onSubmit="App.authorize();" id="authorizeForm">
+            <div id="voterContent">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Voter ID</th>
+                            <th>Account Address</th>
+                            <th>Is Authorized</th>
+                        </tr>
+                    </thead>
+                    <tbody id="voterRegistered"></tbody>
+                </table>
+            </div>
+            <input type="text" id="input-aVoterId" placeholder="Enter Voter ID">
+            <button type="submit" class="btn btn-primary">Authorize</button>
         </form>
     </div>
     

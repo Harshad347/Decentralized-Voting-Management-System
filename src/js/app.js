@@ -30,8 +30,6 @@ App = {
       App.contracts.Election = TruffleContract(election);
       App.contracts.Election.setProvider(App.web3Provider);
 
-      App.listenForEvents();
-
       if (window.ethereum) {
         window.ethereum.on("accountsChanged", () => {
           window.location.reload();
@@ -39,38 +37,6 @@ App = {
       }
 
       return App.render();
-    });
-  },
-
-  listenForEvents: function () {
-    App.contracts.Election.deployed().then(function (instance) {
-      instance
-        .VoterCreated(
-          {},
-          {
-            fromBlock: 0,
-            toBlock: "latest",
-          }
-        )
-        .watch(function (error, event) {});
-      instance
-        .CandidateCreated(
-          {},
-          {
-            fromBlock: 0,
-            toBlock: "latest",
-          }
-        )
-        .watch(function (error, event) {});
-      instance
-        .VoterVoted(
-          {},
-          {
-            fromBlock: 0,
-            toBlock: "latest",
-          }
-        )
-        .watch(function (error, event) {});
     });
   },
 
@@ -98,12 +64,15 @@ App = {
 
           for (var i = 1; i <= candidateCount; i++) {
             electionInstance.candidates(i).then(function (candidate) {
-              var name = candidate[0];
-              var party = candidate[1];
-              var voteCount = candidate[2];
+              var candID = candidate[0];
+              var name = candidate[1];
+              var party = candidate[2];
+              var voteCount = candidate[3];
 
               var candidateTemplate =
                 "<tr><td>" +
+                candID +
+                "</td><td>" +
                 name +
                 "</td><td>" +
                 party +
@@ -125,6 +94,7 @@ App = {
               var name = voter[0];
               var voterId = voter[1];
               var accountAddress = voter[2];
+              var authorized = voter[3];
 
               var voterTemplate =
                 "<tr><td>" +
@@ -133,6 +103,8 @@ App = {
                 voterId +
                 "</td><td>" +
                 accountAddress +
+                "</td><td>" +
+                authorized +
                 "</td></tr>";
               voterRegistered.append(voterTemplate);
             });
@@ -173,6 +145,13 @@ App = {
     var candidateId = $("#input-candidateId").val();
     App.contracts.Election.deployed().then(function (instance) {
       return instance.vote(vVoterId, candidateId, { from: App.account });
+    });
+  },
+
+  authorize: function () {
+    var aVoterId = $("#input-aVoterId").val();
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.authorizeVoter(aVoterId, { from: App.account });
     });
   },
 };

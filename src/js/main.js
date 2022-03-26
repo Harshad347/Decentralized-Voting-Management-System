@@ -4,6 +4,7 @@ function VoterRegForm() {
   document.getElementById("candidateForm").style.display = "none";
   document.getElementById("candidateContent").style.display = "none";
   document.getElementById("voteForm").style.display = "none";
+  document.getElementById("authorizeForm").style.display = "none";
 }
 
 function ShowVoters() {
@@ -12,6 +13,7 @@ function ShowVoters() {
   document.getElementById("candidateForm").style.display = "none";
   document.getElementById("candidateContent").style.display = "none";
   document.getElementById("voteForm").style.display = "none";
+  document.getElementById("authorizeForm").style.display = "none";
 }
 
 function CandidateRegForm() {
@@ -20,6 +22,7 @@ function CandidateRegForm() {
   document.getElementById("candidateForm").style.display = "block";
   document.getElementById("candidateContent").style.display = "none";
   document.getElementById("voteForm").style.display = "none";
+  document.getElementById("authorizeForm").style.display = "none";
 }
 
 function ShowCandidates() {
@@ -28,6 +31,7 @@ function ShowCandidates() {
   document.getElementById("candidateForm").style.display = "none";
   document.getElementById("candidateContent").style.display = "block";
   document.getElementById("voteForm").style.display = "none";
+  document.getElementById("authorizeForm").style.display = "none";
 }
 
 function VoteNow() {
@@ -36,4 +40,14 @@ function VoteNow() {
   document.getElementById("candidateContent").style.display = "block";
   document.getElementById("voterContent").style.display = "none";
   document.getElementById("voteForm").style.display = "block";
+  document.getElementById("authorizeForm").style.display = "none";
+}
+
+function AuthorizeVoter() {
+  document.getElementById("candidateForm").style.display = "none";
+  document.getElementById("voterForm").style.display = "none";
+  document.getElementById("candidateContent").style.display = "none";
+  document.getElementById("voterContent").style.display = "block";
+  document.getElementById("voteForm").style.display = "none";
+  document.getElementById("authorizeForm").style.display = "block";
 }
