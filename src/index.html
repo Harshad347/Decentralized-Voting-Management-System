@@ -30,42 +30,23 @@
     <div id="content">
         <div id="container">
             <p id="accountAddress" class="text-center"></p>
+            <button onclick="AboutElection()">About Election</button>
+            <button onclick="ChangeThePhase()">Change Phase of Election</button>
             <button onclick="VoterRegForm()">Voter Registration</button>
-            <button onclick="ShowVoters()">Voter List</button>
             <button onclick="CandidateRegForm()">Candidate Registration</button>
-            <button onclick="ShowCandidates()">Candidate List</button>
             <button onclick="VoteNow()">Vote a Candidate</button>
             <button onclick="AuthorizeVoter()">Authorize a Voter</button>
         </div>
+
+        <div id="electionStateForm1">
+            <form onSubmit="App.startElection();">
+                <button id="stateValueBtn" type="submit">Start Election</button>
+            </form>
+            <form onSubmit="App.endElection();">
+                <button id="stateValueBtn" type="submit">End Election</button>
+            </form>
+        </div>
         
-        <div id="voterContent">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Voter ID</th>
-                        <th>Account Address</th>
-                        <th>Is Authorized</th>
-                    </tr>
-                </thead>
-                <tbody id="voterRegistered"></tbody>
-            </table>
-        </div>
-    
-        <div id="candidateContent">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Party</th>
-                        <th>Vote Count</th>
-                    </tr>
-                </thead>
-                <tbody id="candidateRegistered"></tbody>
-            </table>
-        </div>
-    
         <form onSubmit="App.registerVoter();" id="voterForm">
             <input type="text" id="input-vName" placeholder="Enter Name">
             <input type="text" id="input-voterId" placeholder="Enter Voter ID">
@@ -115,12 +96,24 @@
             <input type="text" id="input-aVoterId" placeholder="Enter Voter ID">
             <button type="submit" class="btn btn-primary">Authorize</button>
         </form>
+
+        <div id="electionStateForm2">
+            <form onSubmit="App.startRegistrationPhase();">
+                <button id="stateValueBtn" type="submit">Start Registration Phase</button>
+            </form>
+            <form onSubmit="App.startVotingPhase();">
+                <button id="stateValueBtn" type="submit">Start Voting Phase</button>
+            </form>
+            <form onSubmit="App.showResultsPhase();">
+                <button id="stateValueBtn" type="submit">Show Results</button>
+            </form>
+        </div>
     </div>
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
-    <script src="js/app.js"></script>
     <script src="js/main.js"></script>
     
 </body>

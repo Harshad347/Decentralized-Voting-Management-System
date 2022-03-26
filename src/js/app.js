@@ -118,12 +118,7 @@ App = {
     var vName = $("#input-vName").val();
     var voterId = $("#input-voterId").val();
     App.contracts.Election.deployed().then(function (instance) {
-      return instance
-        .registerVoter(vName, voterId, { from: App.account })
-        .then(function (result) {
-          loader.show();
-          content.hide();
-        });
+      return instance.registerVoter(vName, voterId, { from: App.account });
     });
   },
 
@@ -131,12 +126,7 @@ App = {
     var cName = $("#input-cName").val();
     var party = $("#input-party").val();
     App.contracts.Election.deployed().then(function (instance) {
-      return instance
-        .registerCandidate(cName, party, { from: App.account })
-        .then(function (result) {
-          loader.show();
-          content.hide();
-        });
+      return instance.registerCandidate(cName, party, { from: App.account });
     });
   },
 
@@ -152,6 +142,32 @@ App = {
     var aVoterId = $("#input-aVoterId").val();
     App.contracts.Election.deployed().then(function (instance) {
       return instance.authorizeVoter(aVoterId, { from: App.account });
+    });
+  },
+
+  startElection: function () {
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.startElection({ from: App.account });
+    });
+  },
+  endElection: function () {
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.endElection({ from: App.account });
+    });
+  },
+  startRegistrationPhase: function () {
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.startRegistartionPhase({ from: App.account });
+    });
+  },
+  startVotingPhase: function () {
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.startVotingPhase({ from: App.account });
+    });
+  },
+  showResultsPhase: function () {
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.showResultsPhase({ from: App.account });
     });
   },
 };
