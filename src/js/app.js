@@ -111,6 +111,27 @@ App = {
           }
           return electionInstance.voters(App.account);
         });
+        electionInstance.electionState().then(function (electionState) {
+          var state = electionState;
+          if (state < 4) {
+            $("#show-winner-info").html = "Election is still going on....";
+          }
+          if (state == 4) {
+            electionInstance
+              .getWinnerOfElection()
+              .then(function (winningCandidate) {
+                $("#candidate-name").html(
+                  "Candidate Name: " + winningCandidate[0]
+                );
+                $("#candidate-party").html(
+                  "Party Name: " + winningCandidate[1]
+                );
+                $("#voteCount").html(
+                  "Total No. of Votes: " + winningCandidate[2]
+                );
+              });
+          }
+        });
       });
   },
 

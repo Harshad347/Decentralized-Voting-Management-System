@@ -10,21 +10,6 @@
 </head>
 <body>
 
-    <!-- <div class="main">
-
-        <div class="navbar-section">
-            <div class="navbar-links">
-                <a href="#"><i class="fa fa-fw fa-user"></i> <b>Login</a>
-                <a href="#"><i class="fa fa-fw fa-user"></i> Register</a>
-                <a href="#"><i class="fa fa-fw fa-search"></i> About</a>
-                <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
-            </div>
-
-
-        </div>
-    </div> -->
-
-
     <div id="loader">Loading...</div>
 
     <div id="content">
@@ -36,6 +21,7 @@
             <button onclick="CandidateRegForm()">Candidate Registration</button>
             <button onclick="VoteNow()">Vote a Candidate</button>
             <button onclick="AuthorizeVoter()">Authorize a Voter</button>
+            <button onclick="SeeResults()">See Results of Election</button>
         </div>
 
         <div id="electionStateForm1">
@@ -68,7 +54,6 @@
                             <th>Name</th>
                             <th>Party</th>
                             <th>Vote Count</th>
-
                         </tr>
                     </thead>
                     <tbody id="candidateRegistered"></tbody>
@@ -107,6 +92,15 @@
             <form onSubmit="App.showResultsPhase();">
                 <button id="stateValueBtn" type="submit">Show Results</button>
             </form>
+        </div>
+
+        <div id="electionResult">
+            <div id="show-winner-info">
+                <h2>*Winner of The Election*</h2>
+                <div id="candidate-name"></div>
+                <div id="candidate-party"></div>
+                <div id="voteCount"></div>
+            </div>
         </div>
     </div>
     
