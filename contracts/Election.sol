@@ -206,6 +206,29 @@ contract Election {
         return true;
     }
 
+    function getWinnerOfElection()
+        public
+        returns (
+            string memory,
+            string memory,
+            uint256
+        )
+    {
+        uint256 maxVote = 0;
+        uint256 maxVoteCandidateId = 0;
+        for (uint256 i = 0; i < candidateCount; i++) {
+            if (maxVote < candidates[i].noOfVotes) {
+                maxVote = candidates[i].noOfVotes;
+                maxVoteCandidateId = i;
+            }
+        }
+        return (
+            candidates[maxVoteCandidateId].name,
+            candidates[maxVoteCandidateId].party,
+            candidates[maxVoteCandidateId].noOfVotes
+        );
+    }
+
     event VoterCreated(string name, uint256 voterId, address accountAddress);
     event CandidateCreated(string name, string party);
     event VoterVoted(uint256 voterId, uint256 candidateId);
