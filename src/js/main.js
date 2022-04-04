@@ -5,6 +5,7 @@ function VoterRegForm() {
   document.getElementById("authorizeForm").style.display = "none";
   document.getElementById("electionStateForm1").style.display = "none";
   document.getElementById("electionStateForm2").style.display = "none";
+  document.getElementById("electionResult").style.display = "none";
 }
 
 function CandidateRegForm() {
@@ -14,6 +15,7 @@ function CandidateRegForm() {
   document.getElementById("authorizeForm").style.display = "none";
   document.getElementById("electionStateForm1").style.display = "none";
   document.getElementById("electionStateForm2").style.display = "none";
+  document.getElementById("electionResult").style.display = "none";
 }
 
 function VoteNow() {
@@ -23,6 +25,7 @@ function VoteNow() {
   document.getElementById("authorizeForm").style.display = "none";
   document.getElementById("electionStateForm1").style.display = "none";
   document.getElementById("electionStateForm2").style.display = "none";
+  document.getElementById("electionResult").style.display = "none";
 }
 
 function AuthorizeVoter() {
@@ -32,6 +35,7 @@ function AuthorizeVoter() {
   document.getElementById("authorizeForm").style.display = "block";
   document.getElementById("electionStateForm1").style.display = "none";
   document.getElementById("electionStateForm2").style.display = "none";
+  document.getElementById("electionResult").style.display = "none";
 }
 
 function AboutElection() {
@@ -41,6 +45,7 @@ function AboutElection() {
   document.getElementById("authorizeForm").style.display = "none";
   document.getElementById("electionStateForm1").style.display = "block";
   document.getElementById("electionStateForm2").style.display = "none";
+  document.getElementById("electionResult").style.display = "none";
 }
 
 function ChangeThePhase() {
@@ -50,4 +55,15 @@ function ChangeThePhase() {
   document.getElementById("authorizeForm").style.display = "none";
   document.getElementById("electionStateForm1").style.display = "none";
   document.getElementById("electionStateForm2").style.display = "block";
+  document.getElementById("electionResult").style.display = "none";
+}
+
+function SeeResults() {
+  document.getElementById("candidateForm").style.display = "none";
+  document.getElementById("voterForm").style.display = "none";
+  document.getElementById("voteForm").style.display = "none";
+  document.getElementById("authorizeForm").style.display = "none";
+  document.getElementById("electionStateForm1").style.display = "none";
+  document.getElementById("electionStateForm2").style.display = "none";
+  document.getElementById("electionResult").style.display = "block";
 }
