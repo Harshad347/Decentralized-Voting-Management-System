@@ -206,30 +206,30 @@ contract Election {
         return true;
     }
 
-    function getWinnerOfElection()
+    function winnerOfElection()
         public
+        view
         returns (
-            string memory,
-            string memory,
-            uint256
+            string memory winnerCandidteName,
+            string memory winnerPartyName,
+            uint256 voteCount
         )
     {
-        uint256 maxVote = 0;
-        uint256 maxVoteCandidateId = 0;
-        for (uint256 i = 0; i < candidateCount; i++) {
-            if (maxVote < candidates[i].noOfVotes) {
-                maxVote = candidates[i].noOfVotes;
-                maxVoteCandidateId = i;
+        uint256 winingVoteCount = 0;
+        require(electionState == 4, "This is not Result phase.");
+        for (uint256 i = 1; i < candidateCount + 1; i++) {
+            if (candidates[i].noOfVotes > winingVoteCount) {
+                winingVoteCount = candidates[i].noOfVotes;
+                uint256 winnerID = i;
+                winnerCandidteName = candidates[winnerID].name;
+                winnerPartyName = candidates[winnerID].party;
+                voteCount = candidates[winnerID].noOfVotes;
             }
         }
-        return (
-            candidates[maxVoteCandidateId].name,
-            candidates[maxVoteCandidateId].party,
-            candidates[maxVoteCandidateId].noOfVotes
-        );
     }
 
     event VoterCreated(string name, uint256 voterId, address accountAddress);
     event CandidateCreated(string name, string party);
     event VoterVoted(uint256 voterId, uint256 candidateId);
+    event WinnerAnnounced();
 }
