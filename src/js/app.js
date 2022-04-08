@@ -35,6 +35,7 @@ App = {
           window.location.reload();
         });
       }
+      App.getWinner();
 
       return App.render();
     });
@@ -111,28 +112,66 @@ App = {
           }
           return electionInstance.voters(App.account);
         });
-        electionInstance.electionState().then(function (electionState) {
-          var state = electionState;
-          if (state < 4) {
-            $("#show-winner-info").html = "Election is still going on....";
-          }
-          if (state == 4) {
-            electionInstance
-              .getWinnerOfElection()
-              .then(function (winningCandidate) {
-                $("#candidate-name").html(
-                  "Candidate Name: " + winningCandidate[0]
-                );
-                $("#candidate-party").html(
-                  "Party Name: " + winningCandidate[1]
-                );
-                $("#voteCount").html(
-                  "Total No. of Votes: " + winningCandidate[2]
-                );
-              });
-          }
+
+        // electionInstance.winnerOfElection.call(0, (result) => {
+        //   var content = $("#show-winner-info");
+        //   content.empty();
+        //   var text =
+        //     "<h2>" +
+        //     result.winnerCandidteName +
+        //     "</h2><h4>" +
+        //     result.winnerPartyName +
+        //     "</h4><h4>" +
+        //     result.voteCount +
+        //     "</h4>";
+        //   content.append(text);
+        // });
+
+        // electionInstance.winnerName().then(function (winnerBUE) {
+        //   var content = $("#show-winner-info");
+        //   content.empty();
+        //   var result =
+        //     `<h2 class='text-center'> The Winner is: ` + winnerBUE + `</h2>`;
+        //   content.append(result);
+        // });
+
+        // electionInstance.winnerOfElection().then(function (winnerId) {
+        // var winnerContent = $("#show-winner-info");
+        // winnerContent.empty();
+
+        //   electionInstance.candidates(winnerId).then(function (candidate) {
+        // var name = candidate[1];
+        // var party = candidate[2];
+        // var voteCount = candidate[3];
+
+        // var winnerTemplate =
+        //   "<h2>" +
+        //   name +
+        //   "</h2><br><h4>" +
+        //   party +
+        //   "</h4><br><h4>" +
+        //   voteCount +
+        //   "</h4>";
+        // winnerContent.append(winnerTemplate);
+        //   });
+        // });
+      });
+  },
+
+  getWinner: async function (i) {
+    var returnedResult;
+    return new Promise((resolve) => {
+      App.contracts.Election.deployed().then(async function (instance) {
+        await instance.winnerOfElection.call(i).then(function (a) {
+          returnedResult = a;
+          console.log("test:" + returnedResult + ",a:" + a);
+          resolve(returnedResult);
+          $("#winnerCandidate").html("Candidate Name: " + a[0]);
+          $("#winnerParty").html("Candidate Party Name: " + a[1]);
+          $("#maxVotes").html("Total no. of Votes: " + a[2]);
         });
       });
+    });
   },
 
   registerVoter: function () {
